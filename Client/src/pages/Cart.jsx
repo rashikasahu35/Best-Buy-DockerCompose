@@ -16,9 +16,6 @@ const Cart = () => {
     const { loading, cart, noOfItems } = useSelector((state) => state.cart);
     const { error } = useSelector((state) => state.cart.getCartItems);
     
-    useEffect(() => {
-        dispatch(getCartItemsAsync());
-    }, [dispatch]);
     
     useEffect(() => {
         if(cart) {

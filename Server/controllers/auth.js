@@ -66,7 +66,7 @@ exports.forgotPassword = catchAsyncError(async (req, res) => {
     const user = await User.findOne({ email })
     if (user) {
         const resetToken = user.generateResetPasswordToken()
-        const resetLink = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`
+        const resetLink = `${process.env.CLIENT_URL}/resetPassword/${resetToken}`
         const message = `Use the below link to reset your password, the link will be valid for 15 minutes.\n ${resetLink} \n\nIf you have not requested this change then, kindly ignore this mail.`
         const subject = "Best Buy Password Recovery"
 

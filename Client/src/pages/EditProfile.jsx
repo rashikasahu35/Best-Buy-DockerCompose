@@ -46,9 +46,6 @@ const EditProfile = () => {
         );
     };
 
-    useEffect(() => {
-        dispatch(getUserDetailsAsync());
-    }, []);
 
     useEffect(() => {
         if (user) {

@@ -23,9 +23,6 @@ const UserProfile = () => {
         dispatch(deleteUserAccountAsync())
     }
 
-    useEffect(() => {
-        dispatch(getUserDetailsAsync());
-    }, []);
 
     useEffect(() => {
         if(getUserDetailsError){

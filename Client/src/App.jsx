@@ -3,7 +3,6 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 const  NavBar = lazy(() => import("./components/NavBar"));
-const Spinner = lazy(() => import('./components/Spinner'))
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
@@ -40,6 +39,8 @@ import ProtectedRoute from './components/Route/Protected'
 import AdminProtectedRoute from './components/Route/AdminProtected'
 import { useSelector, useDispatch } from "react-redux";
 import {getUserDetailsAsync} from './redux/User/UserSlice'
+import {getCartItemsAsync} from './redux/Cart/CartSlice'
+import Spinner from './components/Spinner';
 
 
 
@@ -47,9 +48,14 @@ function App() {
   const dispatch = useDispatch()
   const { loading, userAuthenticated , user} = useSelector((state) => state.user)
 
-  // useEffect(() => {
-  //   dispatch(getUserDetailsAsync());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUserDetailsAsync());
+    dispatch(getCartItemsAsync());
+  }, []);
+
+  if(loading) {
+    return <Spinner/>
+  }
 
 
   return (
@@ -75,8 +81,8 @@ function App() {
         <Routes>
           <Route path="/" element={<> <NavBar/><Home /> </>} />
 
-          <Route path="/register" element={!userAuthenticated? <Register />:<Navigate to='/'/>} />
-          <Route path="/login" element={!userAuthenticated?<Login />:<Navigate to='/'/>} />
+          <Route path="/register" element={(!loading && !userAuthenticated)? <Register />:<Navigate to='/'/>} />
+          <Route path="/login" element={(!loading && !userAuthenticated)? <Login />:<Navigate to='/'/>} />
 
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword/:token" element={<ResetPassword />} />
