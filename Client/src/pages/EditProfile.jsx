@@ -41,7 +41,7 @@ const EditProfile = () => {
             updateUserDetailsAsync({
                 name: inputData.name,
                 email: inputData.email,
-                avatar: (!inputData.avatar.url && !inputData.avatar.public._id)? inputData.avatar:null,
+                avatar: (!inputData.avatar.url && !inputData.avatar.public_id)? inputData.avatar:null,
             })
         );
     };

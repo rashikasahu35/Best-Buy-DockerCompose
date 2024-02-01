@@ -38,13 +38,14 @@ exports.updateUserDetails = catchAsyncError(async (req, res) => {
         else user.avatar = avatar
     }
     const response = await user.save();
+    
     const responseUser = {
         _id: response._id,
         name: response.name,
         email: response.email,
         createdOn: response.createdOn,
         role: response.role,
-        avatar: response.avatar.url,
+        avatar: response.avatar,
     };
     res.status(200).json({ message: "User updated", response: responseUser });
 });

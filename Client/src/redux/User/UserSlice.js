@@ -148,8 +148,8 @@ export const UserSlice = createSlice({
         })
         .addCase(updateUserDetailsAsync.fulfilled, (state, action) => {
             state.loading = false;
-            state.user = action.payload.response;
             state.userAuthenticated = true
+            state.user = action.payload.response;
             ShowSuccessResponse(action.payload.message)
         })
         .addCase(updateUserDetailsAsync.rejected, (state, action) => {

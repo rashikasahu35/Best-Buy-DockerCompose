@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../components/Sidebar";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
     deleteProductAsync,
@@ -24,6 +24,7 @@ const category = [
 const ProductManage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const { loading: productDetailsLoading, product } = useSelector(
         (state) => state.product.productDetails
     );

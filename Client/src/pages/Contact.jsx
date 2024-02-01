@@ -54,7 +54,7 @@ const Contact = () => {
 
                     <div className="flex space-x-4">
                         <a
-                            href="https://www.linkedin.com/in/rashika-sahu-a28167211/"
+                            href="https://github.com/logic-found"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-white text-base md:text-xl hover:text-indigo-500 transition duration-300"
@@ -62,7 +62,7 @@ const Contact = () => {
                             <Github />
                         </a>
                         <a
-                            href="https://github.com/logic-found"
+                            href="https://www.linkedin.com/in/rashika-sahu-a28167211/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-white text-base md:text-xl hover:text-indigo-500 transition duration-300"
