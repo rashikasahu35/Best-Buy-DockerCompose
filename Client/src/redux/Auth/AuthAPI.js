@@ -1,4 +1,38 @@
 import axios from "axios";
+import getAuthHeader from '../../utils/AuthHeader'
+import { persistor } from '../store'
+
+
+const setToken = (token) => {
+    localStorage.setItem('token', token);
+}
+
+export const register = async ({ name, email, password, avatar }) => {
+    const { data } = await axios.post(
+        `${import.meta.env.VITE_APP_SERVER_URL}/auth/register`,
+        { name, email, password, avatar },
+        { withCredentials: true }
+    );
+    setToken(data?.token)
+    return data;
+};
+export const login = async ({ email, password }) => {
+    const { data } = await axios.post(
+        `${import.meta.env.VITE_APP_SERVER_URL}/auth/login`,
+        { email, password },
+        { withCredentials: true }
+    );
+    setToken(data?.token)
+    return data;
+};
+
+export const logout = async () => {
+    localStorage.removeItem('token')
+    persistor.purge()
+    return {message : "Logged Out"}
+
+};
+
 
 export const resetPassword = async ({ token, password }) => {
     const { data } = await axios.post(
@@ -23,34 +57,13 @@ export const changePassword = async ({
     newPassword,
     confirmPassword,
 }) => {
+    const headers = getAuthHeader()
     const { data } = await axios.post(
         `${import.meta.env.VITE_APP_SERVER_URL}/auth/updatePassword`,
         { currentPassword, newPassword, confirmPassword },
-        { withCredentials: true }
+        headers
     );
-    return data;
-};
-export const register = async ({ name, email, password, avatar }) => {
-    const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_SERVER_URL}/auth/register`,
-        { name, email, password, avatar },
-        { withCredentials: true }
-    );
-    return data;
-};
-export const login = async ({ email, password }) => {
-    const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_SERVER_URL}/auth/login`,
-        { email, password },
-        { withCredentials: true }
-    );
+    setToken(data?.token)
     return data;
 };
 
-export const logout = async () => {
-    const { data } = await axios.get(
-        `${import.meta.env.VITE_APP_SERVER_URL}/auth/logout`,
-        { withCredentials: true }
-    );
-    return data;
-};

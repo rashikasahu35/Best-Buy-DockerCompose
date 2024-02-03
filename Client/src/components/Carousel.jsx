@@ -1,19 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
     FaChevronLeft as LeftSliderIcon,
     FaChevronRight as RightSliderIcon,
 } from "react-icons/fa";
 
-
-
-const Carousel = ({images}) => {
+const Carousel = ({images }) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    
+
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex(
-                (prevIndex) => (prevIndex + 1) % images.length
-            );
+            setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
         }, 3000);
 
         return () => clearInterval(interval);
@@ -22,11 +18,11 @@ const Carousel = ({images}) => {
     return (
         <div
             id="default-carousel"
-            className="relative w-full flex items-center align-middle justify-center"
+            className="relative h-fit w-full flex items-center align-middle justify-center"
             data-carousel="slide"
         >
             {/* Carousel wrapper */}
-            <div className="relative h-56 w-3/5 overflow-hidden rounded-lg md:h-96">
+            <div className="relative h-56 md:w-3/5 overflow-hidden rounded-lg md:h-96 flex justify-center ">
                 {images?.map((image, index) => (
                     <div
                         className={`duration-700 ease-in-out ${
@@ -35,11 +31,13 @@ const Carousel = ({images}) => {
                         data-carousel-item
                         key={index}
                     >
+                        <div className="h-full w-full flex justify-center">
                         <img
                             src={image.url}
-                            className="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                            className="absolute block w-fit h-full object-cover rounded"
                             alt={`Slide ${index + 1}`}
                         />
+                        </div>
                     </div>
                 ))}
             </div>
@@ -61,36 +59,40 @@ const Carousel = ({images}) => {
             </div>
 
             {/* Slider controls */}
-            <div
-                className="absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                data-carousel-prev
-                onClick={() => {
-                    setActiveIndex(
-                        (prevIndex) => (prevIndex - 1) % images?.length
-                    );
-                }}
-            >
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <LeftSliderIcon />
-                    <span className="sr-only">Previous</span>
-                </span>
-            </div>
-            <div
-                className="absolute top-0 end-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                data-carousel-next
-                onClick={() => {
-                    setActiveIndex(
-                        (prevIndex) => (prevIndex + 1) % images?.length
-                    );
-                }}
-            >
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <RightSliderIcon />
-                    <span className="sr-only">Next</span>
-                </span>
-            </div>
+            {images?.length > 1 && (
+                <>
+                    <div
+                        className="absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                        data-carousel-prev
+                        onClick={() => {
+                            setActiveIndex(
+                                (prevIndex) => (prevIndex - 1) % images?.length
+                            );
+                        }}
+                    >
+                        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                            <LeftSliderIcon />
+                            <span className="sr-only">Previous</span>
+                        </span>
+                    </div>
+                    <div
+                        className="absolute top-0 end-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                        data-carousel-next
+                        onClick={() => {
+                            setActiveIndex(
+                                (prevIndex) => (prevIndex + 1) % images?.length
+                            );
+                        }}
+                    >
+                        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                            <RightSliderIcon />
+                            <span className="sr-only">Next</span>
+                        </span>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
 
-export default Carousel
+export default Carousel;

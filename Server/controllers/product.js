@@ -189,7 +189,3 @@ exports.deleteProduct = catchAsyncError(async (req, res) => {
     }
 });
 
-exports.deleteAllProducts = catchAsyncError(async (req, res) => {
-    const response = await Product.deleteMany();
-    res.status(200).json({ response });
-});

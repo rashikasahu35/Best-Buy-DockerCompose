@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserDetailsAsync, deleteUserAccountAsync,  CLEAR_GET_USER_DETAILS_ERROR } from "../redux/User/UserSlice";
+import { getUserDetailsAsync, deleteUserAccountAsync,  CLEAR_GET_USER_DETAILS_ERROR, CLEAR_USER_MESSAGE, CLEAR_USER_ERROR } from "../redux/User/UserSlice";
 import Spinner from '../components/Spinner'
 import {
     logoutAsync,
 } from "../redux/Auth/AuthSlice";
 import ShowError from "../utils/ShowError";
+import ShowSuccessResponse from "../utils/ShowSuccessResponse";
+
+
 
 const UserProfile = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {loading, user,  userAuthenticated,  } = useSelector((state) => state.user);
+    const {loading, user,  userAuthenticated, error, message  } = useSelector((state) => state.user);
     const { error : getUserDetailsError } = useSelector(
         (state) => state.user.getUserDetails
     );
@@ -29,13 +32,21 @@ const UserProfile = () => {
             ShowError(getUserDetailsError)
             dispatch(CLEAR_GET_USER_DETAILS_ERROR())
         }
-    }, [getUserDetailsError])
+        if(message){
+            ShowSuccessResponse(message)
+            dispatch(CLEAR_USER_MESSAGE())
+        }
+        if(error){
+            ShowError(error)
+            dispatch(CLEAR_USER_ERROR())
+        }
+    }, [getUserDetailsError, message, error])
 
 
     return (
         <>
         {loading && <Spinner/>}
-        {user && 
+        {!loading && 
         
         <div className="mt-[80px] container mx-auto px-4">
             <h1 className="text-2xl font-bold">My Profile</h1>

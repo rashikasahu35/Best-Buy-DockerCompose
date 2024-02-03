@@ -46,11 +46,14 @@ import Spinner from './components/Spinner';
 
 function App() {
   const dispatch = useDispatch()
-  const { loading, userAuthenticated , user} = useSelector((state) => state.user)
+  const { loading, userAuthenticated} = useSelector((state) => state.user)
 
   useEffect(() => {
-    dispatch(getUserDetailsAsync());
-    dispatch(getCartItemsAsync());
+    const isRegisterOrLoginRoute = window.location.pathname === '/register' || window.location.pathname === '/login';
+    if(!isRegisterOrLoginRoute){
+      dispatch(getUserDetailsAsync());
+      dispatch(getCartItemsAsync());
+    }
   }, []);
 
   if(loading) {

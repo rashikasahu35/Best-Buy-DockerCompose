@@ -1,11 +1,11 @@
 import axios from "axios";
+import getAuthHeader from "../../utils/AuthHeader";
 
-export const getCartItems= async () => {
+export const getCartItems = async () => {
+    const headers = getAuthHeader();
     const { data } = await axios.get(
         `${import.meta.env.VITE_APP_SERVER_URL}/cart`,
-        {
-            withCredentials: true,
-        }
+        headers
     );
     return data;
 };
@@ -16,6 +16,7 @@ export const addItemInCart = async ({
     price,
     image,
 }) => {
+    const headers = getAuthHeader();
     const { data } = await axios.post(
         `${import.meta.env.VITE_APP_SERVER_URL}/cart/add`,
         {
@@ -25,47 +26,52 @@ export const addItemInCart = async ({
             price,
             image,
         },
-        { withCredentials: true }
+        headers
     );
     return data;
 };
 
-export const updateProductQuantity = async({product, quantity}) => {
-    const { data } = await axios.patch(`${import.meta.env.VITE_APP_SERVER_URL}/cart`,{product, quantity}, {withCredentials : true})
-    return data
-}
+export const updateProductQuantity = async ({ product, quantity }) => {
+    const headers = getAuthHeader();
+    const { data } = await axios.patch(
+        `${import.meta.env.VITE_APP_SERVER_URL}/cart`,
+        { product, quantity },
+        headers
+    );
+    return data;
+};
 export const deleteItemFromCart = async ({ product }) => {
-    const { data } = await axios.delete(`${import.meta.env.VITE_APP_SERVER_URL}/cart`,{data : {product}, withCredentials : true})
-    return data
-}
-
+    const headers = getAuthHeader();
+    const { data } = await axios.delete(
+        `${import.meta.env.VITE_APP_SERVER_URL}/cart`,
+        { headers: headers.headers, data: { product }, withCredentials: true }
+    );
+    return data;
+};
 
 // -------------------------------- ADMIN -----------------------------------
 
-export const getCart= async (id) => {
+export const getCart = async (id) => {
+    const headers = getAuthHeader();
     const { data } = await axios.get(
         `${import.meta.env.VITE_APP_SERVER_URL}/cart/${id}`,
-        {
-            withCredentials: true,
-        }
+        headers
     );
     return data;
 };
-export const getAllCart= async () => {
+export const getAllCart = async () => {
+    const headers = getAuthHeader();
     const { data } = await axios.get(
         `${import.meta.env.VITE_APP_SERVER_URL}/cart/all`,
-        {
-            withCredentials: true,
-        }
+        headers
     );
     return data;
 };
-export const deleteCart= async (id) => {
+export const deleteCart = async (id) => {
+    const headers = getAuthHeader();
     const { data } = await axios.delete(
         `${import.meta.env.VITE_APP_SERVER_URL}/cart/${id}`,
-        {
-            withCredentials: true,
-        }
+        headers
     );
     return data;
 };

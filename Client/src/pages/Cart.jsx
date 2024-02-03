@@ -26,6 +26,7 @@ const Cart = () => {
             dispatch(CLEAR_GET_CART_ERROR()) 
         }
     }, [cart, error]);
+
     
 
     return (

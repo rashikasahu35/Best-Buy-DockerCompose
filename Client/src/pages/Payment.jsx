@@ -11,7 +11,9 @@ import {
     useElements,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import getAuthHeader from "../utils/AuthHeader";
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_API_KEY);
+
 
 const PaymentForm = () => {
     const navigate = useNavigate();
@@ -127,12 +129,15 @@ const Payment = () => {
                 amount: price.totalPrice,
                 shippingDetails
             };
+            const token = localStorage.getItem("token");
             const config = {
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
                 withCredentials: true,
             };
+            
             const { data } = await axios.post(
                 `${import.meta.env.VITE_APP_SERVER_URL}/payment`,
                 paymentData,

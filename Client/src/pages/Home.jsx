@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import Pagination from "../components/Pagination";
 import { getProductListAsync } from "../redux/Product/ProductSlice";
+import { getUserDetailsAsync } from "../redux/User/UserSlice";
+import { getCartItemsAsync } from "../redux/Cart/CartSlice";
 import { useSelector, useDispatch } from "react-redux";
+import {CLEAR_GET_CART_ERROR} from '../redux/Cart/CartSlice'
 import Spinner from "../components/Spinner";
 import women1 from "../assets/women1.jpg";
 import women2 from "../assets/women2.jpg";
@@ -14,11 +17,22 @@ const Home = () => {
     const { loading, products, productCount } = useSelector(
         (state) => state.product.productList
     );
+    const {error : getCartItemsError} = useSelector((state) =>state.cart.getCartItems )
     const [page, setPage] = useState(1);
 
     useEffect(() => {
         dispatch(getProductListAsync({ page }));
+        dispatch(getCartItemsAsync())
     }, [page, dispatch]);
+
+    useEffect(() => {
+        if(getCartItemsError){
+            console.log(getCartItemsError)
+            dispatch(CLEAR_GET_CART_ERROR())
+        }
+    })
+
+
 
     return (
         <>

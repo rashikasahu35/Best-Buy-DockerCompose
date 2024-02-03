@@ -12,7 +12,7 @@ const CartManage = () => {
     const { loading, cart, noOfItems } = useSelector(
         (state) => state.cart.getCart
     );
-    const { success : deleteCartSuccess } = useSelector(
+    const { loading: deleteCartLoading, success : deleteCartSuccess } = useSelector(
         (state) => state.cart.deleteCart
     );
 
@@ -50,8 +50,8 @@ const CartManage = () => {
                                             <div className="font-bold text-lg sm:text-xl md:text-2xl text-center">
                                                 Delete Cart
                                             </div>
-                                            <button className="flex justify-center rounded-md bg-indigo-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 cursor-pointer disabled:cursor-not-allowed" onClick={deleteHandler}>
-                                                Delete
+                                            <button className="flex justify-center rounded-md bg-indigo-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 cursor-pointer disabled:cursor-not-allowed" onClick={deleteHandler} disabled={deleteCartLoading}>
+                                                {deleteCartLoading? "Deleting..":"Delete"}
                                             </button>
                                         </div>
                                     </form>

@@ -9,7 +9,7 @@ const initialState = {
     user: null,
     userAuthenticated : false,
     message : null,
-
+    error : null,
     getUserDetails:{
         error : null
     },
@@ -117,6 +117,12 @@ export const UserSlice = createSlice({
             state.user = null
             state.userAuthenticated = false
         },
+        CLEAR_USER_MESSAGE: (state) => {
+            state.message = null
+        },
+        CLEAR_USER_ERROR: (state) => {
+            state.error = null
+        },
         CLEAR_GET_USER_DETAILS_ERROR : (state) => {
             state.getUserDetails.error = null
         },
@@ -150,11 +156,11 @@ export const UserSlice = createSlice({
             state.loading = false;
             state.userAuthenticated = true
             state.user = action.payload.response;
-            ShowSuccessResponse(action.payload.message)
+            state.message = action.payload.message
         })
         .addCase(updateUserDetailsAsync.rejected, (state, action) => {
             state.loading = false;
-            ShowError(action.payload)
+            state.error = action.payload
         })
         .addCase(deleteUserAccountAsync.pending, (state) => {
             state.loading = true;
@@ -163,11 +169,11 @@ export const UserSlice = createSlice({
             state.loading = false;
             state.user = null;
             state.userAuthenticated = true
-            ShowSuccessResponse(action.payload.message)
+            state.message = action.payload.message
         })
         .addCase(deleteUserAccountAsync.rejected, (state, action) => {
             state.loading = false;
-            ShowError(action.payload)
+            state.error = action.payload
         })
         .addCase(getAllUsersAsync.pending, (state) => {                        // ADMIN 
             state.getAllUsers.loading = true;
@@ -230,5 +236,5 @@ export const UserSlice = createSlice({
     }
 })
 
-export const { SET_USER, CLEAR_USER, CLEAR_USER_CREATE , CLEAR_USER_DELETE, CLEAR_GET_USER_DETAILS_ERROR } = UserSlice.actions
+export const { SET_USER, CLEAR_USER, CLEAR_USER_CREATE , CLEAR_USER_DELETE, CLEAR_GET_USER_DETAILS_ERROR, CLEAR_USER_MESSAGE, CLEAR_USER_ERROR } = UserSlice.actions
 export default UserSlice.reducer

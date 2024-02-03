@@ -124,7 +124,3 @@ exports.deleteUser = catchAsyncError(async (req, res) => {
     }
 });
 
-exports.deleteAllUsers = catchAsyncError(async (req, res) => {
-    const response = await User.deleteMany();
-    res.status(200).json({ response, message: "Deleted all users" });
-});

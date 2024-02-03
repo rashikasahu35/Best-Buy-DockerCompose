@@ -4,8 +4,11 @@ const catchAsyncError = require('./catchAsyncError')
 const jwt = require('jsonwebtoken');
 
 exports.auth = catchAsyncError( async (req, res, next) => {
-    const token  = await req.cookies.token
-    if(token){
+    
+    const authorizationHeader = req.headers?.authorization;
+    const token = authorizationHeader.split(' ')[1]
+
+    if(token && token!=='null'){
         const { id } = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(id)
         if(user){
@@ -26,5 +29,5 @@ exports.authorizeRole = catchAsyncError((req, res, next) => {
     if(!role ||  role !== "admin"){
         throw new Error(`Role : ${req.user?.role} is not allowed to access this resource`, 403)
     }
-    next()
+    else next()
 })

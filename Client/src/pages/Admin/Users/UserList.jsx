@@ -60,7 +60,7 @@ const UsersList = () => {
                                                     scope="col"
                                                     className="px-6 py-3"
                                                 >
-                                                    Email
+                                                    Name
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -96,7 +96,7 @@ const UsersList = () => {
                                                         {user._id}
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        {user.email}
+                                                        {user.name}
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         {user.role}

@@ -108,5 +108,5 @@ const sendTokenandResponse = (statusCode, user, message, req, res) => {
     }
     const responseUser = { _id: user._id, name: user.name, email: user.email, createdOn: user.createdOn, role: user.role, avatar : user.avatar }  // excluding password, to be send in reponse
     req.user = responseUser
-    res.status(statusCode).cookie('token', token, options).json({ message: message, response: responseUser });
+    res.status(statusCode).json({ message: message, response: responseUser, token });
 }

@@ -3,16 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
     updateUserDetailsAsync,
-    getUserDetailsAsync,
     CLEAR_GET_USER_DETAILS_ERROR,
+    CLEAR_USER_ERROR, 
+    CLEAR_USER_MESSAGE
 } from "../redux/User/UserSlice";
 import Spinner from "../components/Spinner";
 import ShowError from "../utils/ShowError";
+import ShowSuccessResponse from "../utils/ShowSuccessResponse";
+
+
 
 const EditProfile = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { loading, user } = useSelector((state) => state.user);
+    const { loading, user, message, error } = useSelector((state) => state.user);
     const { error: getUserDetailsError } = useSelector(
         (state) => state.user.getUserDetails
     );
@@ -60,7 +64,15 @@ const EditProfile = () => {
             ShowError(getUserDetailsError);
             dispatch(CLEAR_GET_USER_DETAILS_ERROR());
         }
-    }, [user, getUserDetailsError]);
+        if(message){
+            ShowSuccessResponse(message)
+            dispatch(CLEAR_USER_MESSAGE())
+        }
+        if(error){
+            ShowError(error)
+            dispatch(CLEAR_USER_ERROR())
+        }
+    }, [user, getUserDetailsError, message, error]);
 
     return (
         <>

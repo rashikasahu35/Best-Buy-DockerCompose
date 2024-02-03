@@ -2,16 +2,20 @@ const express = require('express')
 const router = express.Router()
 const { auth, authorizeRole } = require('../middleware/authorization')
 const { newOrder, updateOrder, deleteOrder, getOrderDetails, myOrders, getAllOrders, updateOrderStatus, getOrder} = require('../controllers/order')
+const { notPermittedForTestUsers } = require('../middleware/testUserPermission')
 
 router
 .post("/new", auth, newOrder)
 .get("/myOrders", auth, myOrders)
 .get("/details/:id", auth, getOrderDetails)
-.get("/all", auth, authorizeRole, getAllOrders)                 //admin
-.patch("/status/:id", auth, authorizeRole, updateOrderStatus)   //admin
-.get("/:id",auth, authorizeRole, getOrder)                      //admin
-.patch("/:id", auth, authorizeRole, updateOrder)                //admin
-.delete("/:id", auth, authorizeRole, deleteOrder)               //admin
+
+// ----------------------- ADMIN ------------------------------
+router
+.get("/all", auth, authorizeRole, getAllOrders)                                           
+.patch("/status/:id", auth, authorizeRole, notPermittedForTestUsers, updateOrderStatus)   
+.get("/:id",auth, authorizeRole, getOrder)                                                
+.patch("/:id", auth, authorizeRole, notPermittedForTestUsers, updateOrder)                
+.delete("/:id", auth, authorizeRole, notPermittedForTestUsers, deleteOrder)               
 
 
 
