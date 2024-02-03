@@ -5,8 +5,9 @@ import {
 } from "react-icons/fa";
 
 const Carousel = ({images }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
 
+
+    const [activeIndex, setActiveIndex] = useState(0);
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -22,8 +23,9 @@ const Carousel = ({images }) => {
             data-carousel="slide"
         >
             {/* Carousel wrapper */}
-            <div className="relative h-56 md:w-3/5 overflow-hidden rounded-lg md:h-96 flex justify-center ">
+            <div className="relative h-56 w-full overflow-hidden rounded-lg md:h-96 flex justify-center ">
                 {images?.map((image, index) => (
+                    
                     <div
                         className={`duration-700 ease-in-out ${
                             activeIndex === index ? "" : "hidden"
@@ -31,7 +33,7 @@ const Carousel = ({images }) => {
                         data-carousel-item
                         key={index}
                     >
-                        <div className="h-full w-full flex justify-center">
+                        <div className="h-full w-full flex justify-center bg-red-300">
                         <img
                             src={image.url}
                             className="absolute block w-fit h-full object-cover rounded"
