@@ -104,10 +104,11 @@ const Dashboard = () => {
     return (
         <>
             {(getAllOrdersLoading || getAllProductsLoading || getAllUsersLoading) && <Spinner/>}
-            {(!getAllOrdersLoading && !getAllProductsLoading && !getAllUsersLoading) && <div className="w-full min-h-screen h-fit bg-gray-200 ">
+            {(!getAllOrdersLoading && !getAllProductsLoading && !getAllUsersLoading) && 
+            <div className="h-fit bg-gray-200 overflow-y-auto">
                 <div className="mt-[60px] text-gray-900 flex flex-wrap gap-x-3 ">
                     <SideBar />
-                    <div className="p-4 sm:ml-60 w-full flex flex-col gap-6">
+                    <div className="h-full py-4 sm:ml-60 w-full flex flex-col gap-y-3 overflow-y-auto">
                         <div className="flex flex-wrap gap-3 md:gap-8 justify-center w-full">
                             <Card title={"Total Revenue"} data={totalAmount} />
                             <Card title={"Users"} data={userCount} />
@@ -119,14 +120,19 @@ const Dashboard = () => {
                                 <Line data={revenue}/>
                             </div>
                         </div>
-                        <div className="w-full flex flex-wrap justify-around">
-                            <div className=" md:h-60 md:w-60 h-44 w-44">
+                        <div className="w-full flex flex-wrap justify-around text-lg text-gray-900 font-bold">
+                            <div className=" md:h-60 md:w-60 h-44 w-44 flex flex-col gap-y-2 text-center">
+                                <p>Users</p>
                                 <Doughnut data={userRole} />
                             </div>
-                            <div className=" md:h-60 md:w-60  h-44 w-44">
+                            <div className=" md:h-60 md:w-60  h-44 w-44  flex flex-col gap-y-2 text-center">
+                                <p>Products</p>
                                 <Doughnut data={productStock} />
                             </div>
                         </div>
+                        
+                        
+                        
                     </div>
                 </div>
             </div>}

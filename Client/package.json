@@ -33,6 +33,7 @@
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.20.0",
     "react-star-ratings": "^2.3.0",
+    "redux-persist": "^6.0.0",
     "stripe": "^14.11.0"
   },
   "devDependencies": {

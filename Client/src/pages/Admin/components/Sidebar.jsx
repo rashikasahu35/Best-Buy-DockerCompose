@@ -25,7 +25,7 @@ const SideBar = () => {
 
             <aside
                 id="default-sidebar"
-                className={`${showSidebar? 'block':'hidden'} sm:block fixed top-[60px] left-0 z-5 w-48 sm:w-60 h-screen  bg-gray-50`}
+                className={`${showSidebar? 'block':'hidden'} sm:block fixed top-[60px] left-0 z-5 w-48 sm:w-60 h-full  bg-gray-50`}
                 aria-label="Sidebar"
             >
                 <div className="sm:hidden w-full flex items-center justify-end pt-1 px-2 text-sm text-gray-500 focus:outline-none focus:ring-2">
@@ -36,7 +36,7 @@ const SideBar = () => {
                         <CloseIcon />
                     </button>
                 </div>
-                <div className=" h-full px-3 py-0 sm:py-3 overflow-y-auto bg-gray-50">
+                <div className="h-full px-3 py-0 sm:py-3 overflow-y-auto bg-gray-50">
                     <div className="flex flex-col gap-y-2 font-medium sm:text-lg">
                         <NavLink
                             to="/admin/dashboard"

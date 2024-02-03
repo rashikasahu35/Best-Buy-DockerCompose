@@ -33,6 +33,7 @@ app.use(cors({
 app.use(cookieParser())
 app.use(fileUpload())
 app.use(bodyParser.urlencoded({ extended : true}))
+app.use(async (req, res, next) => { connectDB(); next()} )
 initializeStripe()
 
 app.get('/', (req, res) => {
@@ -50,7 +51,6 @@ app.use(ErrorHandler)
 
 const server = app.listen(port, () => {
     console.log("server started")
-    connectDB()
 })
 
 cloudinary.config({

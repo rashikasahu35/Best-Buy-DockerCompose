@@ -22,7 +22,7 @@ const UsersList = () => {
         <>
             {loading && <Spinner />}
             {!loading && (
-                <div className="min-h-screen bg-white">
+                <div className="h-fit bg-white">
                     <div className="mt-[60px] text-gray-900 flex flex-wrap gap-x-1">
                         <SideBar />
                         <div className="w-full p-4 sm:ml-60 mt-10 sm:mt-0">
