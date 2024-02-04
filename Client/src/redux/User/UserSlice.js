@@ -168,7 +168,7 @@ export const UserSlice = createSlice({
         .addCase(deleteUserAccountAsync.fulfilled, (state, action) => {
             state.loading = false;
             state.user = null;
-            state.userAuthenticated = true
+            state.userAuthenticated = false
             state.message = action.payload.message
         })
         .addCase(deleteUserAccountAsync.rejected, (state, action) => {

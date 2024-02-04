@@ -23,6 +23,7 @@ export const updateUserDetails = async ({ name, email, avatar }) => {
 export const deleteUserAccount = async () => {
     const headers = getAuthHeader()
     const { data } = await axios.delete(`${import.meta.env.VITE_APP_SERVER_URL}/user/delete`, headers)
+    localStorage.removeItem('token')
     return data
 }
 
