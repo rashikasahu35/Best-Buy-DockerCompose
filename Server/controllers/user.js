@@ -64,9 +64,6 @@ exports.deleteUserAccount = catchAsyncError(async (req, res) => {
             res.status(500).json({ message: "Failed to delete user" });
         }
     }
-
-    res.cookie("token", "", { expires: new Date(0), httpOnly: true });
-    res.status(200).json({ message: "User Account deleted successfully" });
 });
 
 // -----------------  ADMIN  ------------------------
