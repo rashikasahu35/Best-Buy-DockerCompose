@@ -26,9 +26,13 @@ const UserProfile = () => {
         dispatch(deleteUserAccountAsync())
     }
 
+    useEffect(() => {
+        dispatch(getUserDetailsAsync())
+    }, [])
+
 
     useEffect(() => {
-        if(userAuthenticated && getUserDetailsError && getUserDetailsAsync?.response?.status === 401){
+        if(userAuthenticated && getUserDetailsError && getUserDetailsError?.response?.status === 401){
             dispatch(CLEAR_GET_USER_DETAILS_ERROR())
         }
         if(getUserDetailsError){
@@ -43,7 +47,7 @@ const UserProfile = () => {
             ShowError(error)
             dispatch(CLEAR_USER_ERROR())
         }
-    }, [getUserDetailsError, message, error])
+    }, [userAuthenticated, getUserDetailsError, message, error])
 
 
     return (
