@@ -49,11 +49,8 @@ function App() {
   const { loading, userAuthenticated} = useSelector((state) => state.user)
 
   useEffect(() => {
-    const isRegisterOrLoginRoute = window.location.pathname === '/register' || window.location.pathname === '/login';
-    if(!isRegisterOrLoginRoute){
-      dispatch(getUserDetailsAsync());
-      dispatch(getCartItemsAsync());
-    }
+    dispatch(getUserDetailsAsync());
+    dispatch(getCartItemsAsync());
   }, []);
 
   if(loading) {

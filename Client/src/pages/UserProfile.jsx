@@ -28,6 +28,9 @@ const UserProfile = () => {
 
 
     useEffect(() => {
+        if(userAuthenticated && getUserDetailsError && getUserDetailsAsync?.response?.status === 401){
+            dispatch(CLEAR_GET_USER_DETAILS_ERROR())
+        }
         if(getUserDetailsError){
             ShowError(getUserDetailsError)
             dispatch(CLEAR_GET_USER_DETAILS_ERROR())
