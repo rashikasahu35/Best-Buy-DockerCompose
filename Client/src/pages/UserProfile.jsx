@@ -25,9 +25,7 @@ const UserProfile = () => {
     const deleteUserAccount = async () => {
         dispatch(deleteUserAccountAsync())
     }
-
-
-
+    
     useEffect(() => {
         if(userAuthenticated && getUserDetailsError && getUserDetailsError?.response?.status === 401){
             dispatch(CLEAR_GET_USER_DETAILS_ERROR())

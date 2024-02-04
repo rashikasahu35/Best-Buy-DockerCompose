@@ -5,7 +5,7 @@ import { FaShoppingCart as CartImg } from "react-icons/fa";
 import Spinner from "../components/Spinner";
 import {
     getCartItemsAsync,
-    CLEAR_GET_CART_ERROR,
+    CLEAR_GET_CART_ITEMS_ERROR,
 } from "../redux/Cart/CartSlice";
 import { SET_ORDER_PRICE } from "../redux/Order/OrderSummary";
 import ShowError from "../utils/ShowError";
@@ -28,14 +28,14 @@ const Cart = () => {
 
     useEffect(() => {
         if (userAuthenticated && error && error?.response?.status === 401) {
-            dispatch(CLEAR_GET_CART_ERROR());
+            dispatch(CLEAR_GET_CART_ITEMS_ERROR());
         }
         if (cart) {
             dispatch(SET_ORDER_PRICE(cart?.subTotal));
         }
         if (error) {
             ShowError(error);
-            dispatch(CLEAR_GET_CART_ERROR());
+            dispatch(CLEAR_GET_CART_ITEMS_ERROR());
         }
     }, [userAuthenticated, cart, error]);
 

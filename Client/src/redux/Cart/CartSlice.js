@@ -110,8 +110,8 @@ const CartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        CLEAR_GET_CART_ERROR :(state) => {
-            state.getCart.error = null
+        CLEAR_GET_CART_ITEMS_ERROR :(state) => {
+            state.getCartItems.error = null
         },
         CLEAR_DELETE_CART : (state) => {
             state.deleteCart.success = false
@@ -209,4 +209,4 @@ const CartSlice = createSlice({
 });
 
 export default CartSlice.reducer;
-export const { CLEAR_GET_CART_ERROR, CLEAR_DELETE_CART } = CartSlice.actions;
+export const { CLEAR_GET_CART_ITEMS_ERROR, CLEAR_DELETE_CART } = CartSlice.actions;

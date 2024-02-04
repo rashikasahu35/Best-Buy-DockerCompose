@@ -3,7 +3,7 @@ import ProductCard from "../components/ProductCard";
 import Pagination from "../components/Pagination";
 import { getProductListAsync } from "../redux/Product/ProductSlice";
 import { getUserDetailsAsync, CLEAR_GET_USER_DETAILS_ERROR } from "../redux/User/UserSlice";
-import { getCartItemsAsync, CLEAR_GET_CART_ERROR } from "../redux/Cart/CartSlice";
+import { getCartItemsAsync, CLEAR_GET_CART_ITEMS_ERROR } from "../redux/Cart/CartSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Spinner from "../components/Spinner";
 import women1 from "../assets/women1.jpg";
@@ -27,11 +27,13 @@ const Home = () => {
     }, [page, dispatch]);
 
     useEffect(() => {
+        
         if(userAuthenticated){
             if(getCartItemsError?.response?.status === 401){
-                dispatch(CLEAR_GET_CART_ERROR())
+                dispatch(CLEAR_GET_CART_ITEMS_ERROR())
             }
             if(getUserDetailsError?.response?.status === 401){
+                console.log(getCartItemsError)
                 dispatch(CLEAR_GET_USER_DETAILS_ERROR())
             }
         }
