@@ -8,10 +8,10 @@
 ####    - Admin Dashboard for effective management 🖥️
 
 
-| Test User | Test Admin |
+| User Credentials | Admin Credentials |
 |:----------|:-----------|
-| test.user.0123459876@gmail.com | test.adm.0123459876@gmail.com |
-| testuser@123 | testadmin@123 |
+| Email: test.user.0123459876@gmail.com | Email: test.adm.0123459876@gmail.com |
+| Password: testuser@123 | Password: testadmin@123 |
 
 ### Stripe Card Number : 4000003560000008 | 4000003560000123
 
