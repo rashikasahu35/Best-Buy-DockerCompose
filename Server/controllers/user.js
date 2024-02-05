@@ -30,15 +30,18 @@ exports.updateUserDetails = catchAsyncError(async (req, res) => {
     user.name = name || user.name;
     user.email = email || user.email;
     if (avatar) {
-        if(!avatar.public_id && !avatar.url){  //new avatar has been added
+        if (!avatar.public_id && !avatar.url) {
+            //new avatar has been added
             await destroyImage(user.avatar?.public_id);
-            const { public_id, secure_url } = await uploadImage(avatar, "avatars");
+            const { public_id, secure_url } = await uploadImage(
+                avatar,
+                "avatars"
+            );
             user.avatar = { public_id, url: secure_url };
-        }
-        else user.avatar = avatar
+        } else user.avatar = avatar;
     }
     const response = await user.save();
-    
+
     const responseUser = {
         _id: response._id,
         name: response.name,
@@ -69,14 +72,25 @@ exports.deleteUserAccount = catchAsyncError(async (req, res) => {
 // -----------------  ADMIN  ------------------------
 
 exports.getAllUsers = catchAsyncError(async (req, res) => {
-    const response = await User.find();
+    const id = req.user._id;
+    let response = await User.find();
+    
+    if (id.toString() === process.env.TEST_ADMIN) {
+        response = response?.filter((user) => user.role === "user");
+    }
     res.status(200).json({ response, userCount: response?.length });
 });
 
 exports.createUser = catchAsyncError(async (req, res) => {
     const { name, email, password, avatar, role } = req.body;
     const { public_id, secure_url } = await uploadImage(avatar, "avatars");
-    const newUser = new User({ name, email, password, avatar : {public_id, url : secure_url}, role });
+    const newUser = new User({
+        name,
+        email,
+        password,
+        avatar: { public_id, url: secure_url },
+        role,
+    });
     const user = await newUser.save();
     res.status(201).json({ response: user, message: "User Created" });
 });
@@ -95,12 +109,15 @@ exports.updateUser = catchAsyncError(async (req, res) => {
     user.email = email || user.email;
     user.role = role || user.role;
     if (avatar) {
-        if(!avatar.public_id && !avatar.url){    //new avatar has been added
+        if (!avatar.public_id && !avatar.url) {
+            //new avatar has been added
             await destroyImage(user.avatar?.public_id);
-            const { public_id, secure_url } = await uploadImage(avatar, "avatars");
+            const { public_id, secure_url } = await uploadImage(
+                avatar,
+                "avatars"
+            );
             user.avatar = { public_id, url: secure_url };
-        }
-        else user.avatar = avatar
+        } else user.avatar = avatar;
     }
     const response = user.save();
     res.status(200).json({ response, message: "User Updated" });
@@ -120,4 +137,3 @@ exports.deleteUser = catchAsyncError(async (req, res) => {
         }
     }
 });
-
