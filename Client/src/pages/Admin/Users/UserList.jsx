@@ -54,7 +54,7 @@ const UsersList = () => {
                                                     scope="col"
                                                     className="px-6 py-3"
                                                 >
-                                                    User ID
+                                                    Mail
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -93,7 +93,7 @@ const UsersList = () => {
                                                         />
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        {user._id}
+                                                        {user.email}
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         {user.name}
