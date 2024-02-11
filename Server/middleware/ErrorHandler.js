@@ -18,14 +18,14 @@ const ErrorHandler = (err, req, res, next) => {
 
     // wrong JWT error
     if(err.name === "JsonWebTokenError"){
-        const message = `Json Web Token is invalid, Try again`
-        err = new Error(message, 400)
+        const message = `Please login to access this resource`
+        err = new Error(message, 401)
     }
 
     // JWT expire error
     if(err.name === "TokenExpiredError"){
-        const message = `Json Web Token is Expired, Try again`
-        err = new Error(message, 400)
+        const message = `Please login to access this resource`
+        err = new Error(message, 401)
     }
 
 
