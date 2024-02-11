@@ -4,7 +4,8 @@ import { persistor } from '../store'
 
 
 const setToken = (token) => {
-    localStorage.setItem('token', token);
+    const expiryTime = new Date().getTime() + (3 * 24 * 60 * 60 * 1000); // 3 days in milliseconds
+    localStorage.setItem('token', JSON.stringify({ value: token, expiry: expiryTime }));
 }
 
 export const register = async ({ name, email, password, avatar }) => {

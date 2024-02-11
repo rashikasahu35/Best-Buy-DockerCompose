@@ -49,9 +49,26 @@ function App() {
   const { loading, userAuthenticated} = useSelector((state) => state.user)
 
   useEffect(() => {
+    getToken()
     dispatch(getUserDetailsAsync());
     dispatch(getCartItemsAsync());
   }, []);
+
+  const getToken = () => {
+    const tokenString = localStorage.getItem('token');
+    if (!tokenString) {
+      return;
+    }
+    else {
+      const { expiry } = JSON.parse(tokenString);
+      const currentTime = new Date().getTime();
+
+      if (currentTime > expiry) {
+        localStorage.removeItem('token'); // Remove expired token
+        return; // Token is expired
+      }
+    }
+  }
 
   if(loading) {
     return <Spinner/>
