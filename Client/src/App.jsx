@@ -38,7 +38,7 @@ const AdminCartManage = lazy(() => import("./pages/Admin/Cart/CartManage"))
 import ProtectedRoute from './components/Route/Protected'
 import AdminProtectedRoute from './components/Route/AdminProtected'
 import { useSelector, useDispatch } from "react-redux";
-import {getUserDetailsAsync} from './redux/User/UserSlice'
+import {getUserDetailsAsync, CLEAR_USER} from './redux/User/UserSlice'
 import {getCartItemsAsync} from './redux/Cart/CartSlice'
 import Spinner from './components/Spinner';
 
@@ -65,7 +65,7 @@ function App() {
 
       if (currentTime > expiry) {
         localStorage.removeItem('token'); // Remove expired token
-        return; // Token is expired
+        dispatch(CLEAR_USER())
       }
     }
   }
