@@ -12,7 +12,6 @@ import Pagination from "../components/Pagination";
 import Spinner from "../components/Spinner";
 import { getProductListAsync } from "../redux/Product/ProductSlice";
 
-
 const ProductList = () => {
     const dispatch = useDispatch();
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -45,76 +44,79 @@ const ProductList = () => {
         <>
             <NavBar />
             <div className="bg-white">
-                {loading && <Spinner />}
-                
-                {products && (
-                    <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-                            <h1 className=" text-xl md:text-4xl font-bold tracking-tight text-gray-900">
-                                All Products
-                            </h1>
+                <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+                        <h1 className=" text-xl md:text-4xl font-bold tracking-tight text-gray-900">
+                            All Products
+                        </h1>
 
-                            {/* Sort */}
-                            <div className="flex items-center">
-                                <ProductSort
-                                    queryCondition={queryCondition}
-                                    setQueryCondition={setQueryCondition}
-                                    setPage={setPage}
+                        {/* Sort */}
+                        <div className="flex items-center">
+                            <ProductSort
+                                queryCondition={queryCondition}
+                                setQueryCondition={setQueryCondition}
+                                setPage={setPage}
+                            />
+                            <button
+                                type="button"
+                                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                                onClick={() => setMobileFiltersOpen(true)}
+                            >
+                                <span className="sr-only">Filters</span>
+                                <FunnelIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
                                 />
-                                <button
-                                    type="button"
-                                    className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                                    onClick={() => setMobileFiltersOpen(true)}
-                                >
-                                    <span className="sr-only">Filters</span>
-                                    <FunnelIcon
-                                        className="h-5 w-5"
-                                        aria-hidden="true"
-                                    />
-                                </button>
+                            </button>
+                        </div>
+                    </div>
+
+                    <section
+                        aria-labelledby="products-heading"
+                        className="pt-6"
+                    >
+                        <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+                            {/* Filters */}
+                            <ProductFilter
+                                mobileFiltersOpen={mobileFiltersOpen}
+                                setMobileFiltersOpen={setMobileFiltersOpen}
+                                queryCondition={queryCondition}
+                                setQueryCondition={setQueryCondition}
+                                setPage={setPage}
+                            />
+
+                            {/* Product grid & Pagination */}
+                            <div className="lg:col-span-3 ">
+                                {loading && <Spinner />}
+
+                                {!loading && (
+                                    <>
+                                        {/* no product remark */}
+                                        {productCount == 0 && (
+                                            <p className="w-full text-3xl text-indigo-600 text-center">
+                                                Sorry, no product found!
+                                            </p>
+                                        )}
+                                        
+                                        <div className="mt-4 mb-8 grid grid-cols-2 gap-x-6 gap-y-6 md:grid-cols-3 xl:gap-x-8 text-center">
+                                            {products?.map((product, index) => (
+                                                <ProductCard
+                                                    product={product}
+                                                    key={index}
+                                                />
+                                            ))}
+                                        </div>
+                                        <Pagination
+                                            page={page}
+                                            setPage={setPage}
+                                            productCount={productCount}
+                                        />
+                                    </>
+                                )}
                             </div>
                         </div>
-
-                        <section
-                            aria-labelledby="products-heading"
-                            className="pt-6"
-                        >
-                            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                                {/* Filters */}
-                                <ProductFilter
-                                    mobileFiltersOpen={mobileFiltersOpen}
-                                    setMobileFiltersOpen={setMobileFiltersOpen}
-                                    queryCondition={queryCondition}
-                                    setQueryCondition={setQueryCondition}
-                                    setPage={setPage}
-                                />
-
-                                {/* Product grid & Pagination */}
-                                <div className="lg:col-span-3 ">
-                                    {/* no product remark */}
-                                    {productCount == 0 && (
-                                        <p className="w-full text-3xl text-indigo-600 text-center">
-                                            Sorry, no product found!
-                                        </p>
-                                    )}
-                                    <div className="mt-4 mb-8 grid grid-cols-2 gap-x-6 gap-y-6 md:grid-cols-3 xl:gap-x-8 text-center">
-                                        {products?.map((product, index) => (
-                                            <ProductCard
-                                                product={product}
-                                                key={index}
-                                            />
-                                        ))}
-                                    </div>
-                                    <Pagination
-                                        page={page}
-                                        setPage={setPage}
-                                        productCount={productCount}
-                                    />
-                                </div>
-                            </div>
-                        </section>
-                    </main>
-                )}
+                    </section>
+                </main>
             </div>
         </>
     );
@@ -128,7 +130,6 @@ const ProductFilter = ({
     setQueryCondition,
     setPage,
 }) => {
-    
     const filters = [
         {
             id: "category",
