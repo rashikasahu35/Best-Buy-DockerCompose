@@ -6,9 +6,10 @@ const jwt = require('jsonwebtoken');
 exports.auth = catchAsyncError( async (req, res, next) => {
     
     const authorizationHeader = req.headers?.authorization;
-    const token = authorizationHeader.split(' ')[1]
+    const  token  = JSON.parse(authorizationHeader.split(' ')[1])?.value
+    console.log(token)
 
-    if(token && token!=='null'){
+    if(token){
         const { id } = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(id)
         if(user){

@@ -27,15 +27,12 @@ const Cart = () => {
     }, [])
 
     useEffect(() => {
-        if (userAuthenticated && error && error?.response?.status === 401) {
+        if(error){
+            ShowError(error);
             dispatch(CLEAR_GET_CART_ITEMS_ERROR());
         }
         if (cart) {
             dispatch(SET_ORDER_PRICE(cart?.subTotal));
-        }
-        if (error) {
-            ShowError(error);
-            dispatch(CLEAR_GET_CART_ITEMS_ERROR());
         }
     }, [userAuthenticated, cart, error]);
 
