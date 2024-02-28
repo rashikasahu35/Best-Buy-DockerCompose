@@ -70,11 +70,6 @@ function App() {
     }
   }
 
-  if(loading) {
-    return <Spinner/>
-  }
-
-
   return (
     <>
     <Suspense fallback={<></>}>
