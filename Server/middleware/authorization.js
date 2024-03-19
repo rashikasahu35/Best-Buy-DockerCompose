@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 exports.auth = catchAsyncError( async (req, res, next) => {
     const authorizationHeader = req.headers?.authorization;
     if(!authorizationHeader) throw new Error("Please login to access this resource", 401)
-    console.log(authorizationHeader)
     const token = JSON.parse(authorizationHeader?.split(' ')[1])?.value
 
     if(token){   // if token exist
