@@ -46,6 +46,12 @@
 ## Cart
 <img width="700" alt="image" src="https://github.com/logic-found/Best-Buy/assets/93260606/77f1420b-7206-4044-a54d-4c2bc4b604cd">
 
+## Checkout 
+<img width="700" alt="image" src="https://github.com/logic-found/Best-Buy/assets/93260606/ce99700e-aebe-4c35-9e5d-e0e223bae2d9">
+
+## Payment
+<img width="700" alt="image" src="https://github.com/logic-found/Best-Buy/assets/93260606/f4479d1b-87ce-47d6-90d4-409ffb445d5a">
+
 ## User Profile 
 <img width="700" alt="image" src="https://github.com/logic-found/Best-Buy/assets/93260606/61c37e33-460c-4ed3-8644-9c72ae11ea39">
 
