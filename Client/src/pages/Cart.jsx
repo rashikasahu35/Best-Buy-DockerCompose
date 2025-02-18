@@ -7,7 +7,6 @@ import {
     getCartItemsAsync,
     CLEAR_GET_CART_ITEMS_ERROR,
 } from "../redux/Cart/CartSlice";
-import { SET_ORDER_PRICE } from "../redux/Order/OrderSummary";
 import ShowError from "../utils/ShowError";
 import { FaPlus as Plus, FaMinus as Minus } from "react-icons/fa";
 import {
@@ -30,9 +29,6 @@ const Cart = () => {
         if(error){
             ShowError(error);
             dispatch(CLEAR_GET_CART_ITEMS_ERROR());
-        }
-        if (cart) {
-            dispatch(SET_ORDER_PRICE(cart?.subTotal));
         }
     }, [userAuthenticated, cart, error]);
 
@@ -89,18 +85,6 @@ const Cart = () => {
                                             <div className="pr-0 md:pr-6 lg:pr-10 xl:pr-16">
                                                 ₹{cart?.subTotal}
                                             </div>
-                                        </div>
-
-                                        {/* Checkout */}
-                                        <div className="w-full flex justify-end mt-6 md:px-6">
-                                            <button
-                                                onClick={() =>
-                                                    navigate("/checkout")
-                                                }
-                                                className=" bg-indigo-600 font-semibold hover:bg-indigo-700 rounded p-3 px-4 md:px-10 text-sm text-white uppercase"
-                                            >
-                                                Checkout
-                                            </button>
                                         </div>
                                     </div>
                                 </div>

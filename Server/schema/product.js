@@ -15,7 +15,6 @@ const schema = new Schema({
         required: [true, "Please enter product category"],
     },
     createdAt: { type: Date, default: Date.now },
-    noOfStock: { type: Number, required : [true, "Please enter no of product stock"] },
     ratings: { type: Number, default: 0 },
     noOfReviews: { type: Number, default: 0 },
     images: {

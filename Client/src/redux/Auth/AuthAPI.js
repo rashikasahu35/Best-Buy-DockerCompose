@@ -33,38 +33,3 @@ export const logout = async () => {
     return {message : "Logged Out"}
 
 };
-
-
-export const resetPassword = async ({ token, password }) => {
-    const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_SERVER_URL}/auth/resetPassword/${token}`,
-        { password },
-        { withCredentials: true }
-    );
-    return data;
-};
-
-export const forgotPassword = async ({ email }) => {
-    const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_SERVER_URL}/auth/forgotPassword`,
-        { email },
-        { withCredentials: true }
-    );
-    return data;
-};
-
-export const changePassword = async ({
-    currentPassword,
-    newPassword,
-    confirmPassword,
-}) => {
-    const headers = getAuthHeader()
-    const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_SERVER_URL}/auth/updatePassword`,
-        { currentPassword, newPassword, confirmPassword },
-        headers
-    );
-    setToken(data?.token)
-    return data;
-};
-

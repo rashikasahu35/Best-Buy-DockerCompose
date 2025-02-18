@@ -23,11 +23,3 @@ exports.auth = catchAsyncError( async (req, res, next) => {
         throw new Error("Please login to access this resource", 401)
     }
 })
-
-exports.authorizeRole = catchAsyncError((req, res, next) => {
-    const { role } = req.user
-    if(!role ||  role !== "admin"){
-        throw new Error(`Role : ${req.user?.role} is not allowed to access this resource`, 403)
-    }
-    else next()
-})

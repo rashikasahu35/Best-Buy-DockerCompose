@@ -3,10 +3,6 @@ import {
     getProductList,
     getProductDetails,
     getProductSearch,
-    createProduct,
-    deleteProduct,
-    getAllProducts,
-    updateProduct
 } from "./ProductAPI";
 import ShowError from "../../utils/ShowError";
 import ShowSuccessResponse from "../../utils/ShowSuccessResponse";
@@ -26,23 +22,6 @@ const initialState = {
         products: null,
         productCount: null,
     },
-    productAll : {
-        loading: false,
-        products: null,
-        productCount: null,
-    },
-    productCreate: {
-        loading: false,
-        success : false
-    },
-    productUpdate: {
-        loading: false,
-        product : null
-    },
-    productDelete : {
-        loading : false,
-        success : false
-    }
 };
 export const getProductListAsync = createAsyncThunk(
     "PRODUCT_LIST",
@@ -85,63 +64,6 @@ export const getProductSearchAsync = createAsyncThunk(
     }
 );
 
-// ---------------------------------- ADMIN ------------------------------
-export const createProductAsync = createAsyncThunk(
-    "ADMIN/PRODUCT_CREATE",
-    async ({ name, description, noOfStock, price, category, images }, thunkAPI) => {
-        try {
-            return await createProduct({
-                name,
-                description,
-                noOfStock,
-                price,
-                category,
-                images,
-            });
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-);
-
-export const updateProductAsync = createAsyncThunk(
-    "ADMIN/PRODUCT_UPDATE",
-    async ({ id, name, description, noOfStock, price, category, images }, thunkAPI) => {
-        try {
-            return await updateProduct({
-                id,
-                name,
-                description,
-                noOfStock,
-                price,
-                category,
-                images,
-            });
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-);
-export const deleteProductAsync = createAsyncThunk(
-    "ADMIN/PRODUCT_DELETE",
-    async (id, thunkAPI ) => {
-        try {
-            return await deleteProduct(id);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-);
-export const getAllProductsAsync = createAsyncThunk(
-    "ADMIN/PRODUCT_ALL",
-    async (_, thunkAPI) => {
-        try {
-            return await getAllProducts();
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-);
 
 export const ProductListSlice = createSlice({
     name: "product",
@@ -154,12 +76,6 @@ export const ProductListSlice = createSlice({
                 productCount: null,
             };
         },
-        CLEAR_PRODUCT_CREATE : (state) => {
-            state.productCreate.success = false
-        },
-        CLEAR_PRODUCT_DELETE : (state) => {
-            state.productDelete.success = false
-        }
     },
     extraReducers: (builder) => {
         builder
@@ -204,57 +120,8 @@ export const ProductListSlice = createSlice({
                 state.productSearch.loading = false;
                 ShowError(action.payload);
             })
-            .addCase(createProductAsync.pending, (state) => {
-                state.productCreate.loading = true;
-            })
-            .addCase(createProductAsync.fulfilled, (state, action) => {
-                state.productCreate.loading = false;
-                state.productCreate.success = true;
-                ShowSuccessResponse(action.payload.message);
-            })
-            .addCase(createProductAsync.rejected, (state, action) => {
-                state.productCreate.loading = false;
-                ShowError(action.payload);
-            })
-            .addCase(updateProductAsync.pending, (state) => {
-                state.productUpdate.loading = true;
-            })
-            .addCase(updateProductAsync.fulfilled, (state, action) => {
-                state.productUpdate.loading = false;
-                ShowSuccessResponse(action.payload.message);
-            })
-            .addCase(updateProductAsync.rejected, (state, action) => {
-                state.productUpdate.loading = false;
-                ShowError(action.payload);
-            })
-            .addCase(deleteProductAsync.pending, (state) => {
-                state.productDelete.loading = true;
-            })
-            .addCase(deleteProductAsync.fulfilled, (state, action) => {
-                state.productDelete.loading = false;
-                state.productDelete.success = true
-                ShowSuccessResponse(action.payload.message);
-            })
-            .addCase(deleteProductAsync.rejected, (state, action) => {
-                state.productDelete.loading = false;
-                ShowError(action.payload);
-            })
-            .addCase(getAllProductsAsync.pending, (state) => {
-                state.productAll.loading = true;
-            })
-            .addCase(getAllProductsAsync.fulfilled, (state, action) => {
-                state.productAll = {
-                    loading: false,
-                    products: action.payload.response,
-                    productCount: action.payload.productCount,
-                };
-            })
-            .addCase(getAllProductsAsync.rejected, (state, action) => {
-                state.productAll.loading = false;
-                ShowError(action.payload);
-            })
-    },
+        },
 });
 
 export default ProductListSlice.reducer;
-export const { CLEAR_PRODUCT_SEARCH , CLEAR_PRODUCT_CREATE, CLEAR_PRODUCT_DELETE} = ProductListSlice.actions;
+export const { CLEAR_PRODUCT_SEARCH } = ProductListSlice.actions;

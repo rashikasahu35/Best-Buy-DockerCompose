@@ -1,6 +1,5 @@
 import queryString from "query-string";
 import axios from "axios";
-import getAuthHeader from "../../utils/AuthHeader";
 
 
 export const getProductList = async ({
@@ -49,45 +48,3 @@ export const getProductDetails = async (id) => {
     );
     return data?.response;
 };
-
-// ------------------------- ADMIN -------------------------------
-
-export const createProduct = async({name, description, noOfStock, price, category, images}) => {
-    const headers = getAuthHeader()
-    const { data } = await axios.post(
-        `${import.meta.env.VITE_APP_SERVER_URL}/product/new`,
-        {name, description, noOfStock, price, category, images},
-        headers
-    );
-    return data;
-}
-
-export const updateProduct = async({id, name, description, noOfStock, price, category, images}) => {
-    const headers = getAuthHeader()
-    const { data } = await axios.patch(
-        `${import.meta.env.VITE_APP_SERVER_URL}/product/${id}`,
-        {name, description, noOfStock, price, category, images},
-        headers
-    );
-    return data;
-}
-export const deleteProduct = async(id) => {
-    const headers = getAuthHeader()
-    const { data } = await axios.delete(
-        `${import.meta.env.VITE_APP_SERVER_URL}/product/${id}`,
-        headers
-    );
-    return data;
-}
-
-export const getAllProducts = async() => {
-    const headers = getAuthHeader()
-    const { data } = await axios.get(
-        `${import.meta.env.VITE_APP_SERVER_URL}/product`,
-        headers
-    );
-    return data;
-}
-
-
-

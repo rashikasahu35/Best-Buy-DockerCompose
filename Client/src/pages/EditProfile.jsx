@@ -23,20 +23,10 @@ const EditProfile = () => {
     const [inputData, setInputData] = useState({
         name: "",
         email: "",
-        avatar: "",
     });
 
     const setInputDataHandler = (key, value) => {
-        if (key === "avatar") {
-            const file = value;
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setInputData({ ...inputData, avatar: reader.result });
-            };
-            reader.readAsDataURL(file);
-        } else {
-            setInputData({ ...inputData, [key]: value });
-        }
+        setInputData({ ...inputData, [key]: value });
     };
 
     const submitHandler = async (e) => {
@@ -45,7 +35,6 @@ const EditProfile = () => {
             updateUserDetailsAsync({
                 name: inputData.name,
                 email: inputData.email,
-                avatar: (!inputData.avatar.url && !inputData.avatar.public_id)? inputData.avatar:null,
             })
         );
     };
@@ -56,7 +45,6 @@ const EditProfile = () => {
             setInputData({
                 name: user?.name || "",
                 email: user?.email || "",
-                avatar: user.avatar || "",
             });
         }
 
@@ -134,37 +122,6 @@ const EditProfile = () => {
                                     maxLength={40}
                                     className="form-input block w-full border border-gray-300 rounded-md shadow-sm"
                                 />
-                            </div>
-                            <div>
-                                <label
-                                    htmlFor="avatar"
-                                    className="text-sm font-medium text-gray-700 block mb-2"
-                                >
-                                    Avatar
-                                </label>
-                                <div className="flex gap-4 items-center">
-                                    {inputData.avatar && (
-                                        <img
-                                            src={
-                                                inputData.avatar.url ||
-                                                inputData.avatar
-                                            }
-                                            alt="avatar"
-                                            className="h-12 w-14 rounded-full"
-                                        />
-                                    )}
-                                    <input
-                                        type="file"
-                                        id="avatar"
-                                        onChange={(e) =>
-                                            setInputDataHandler(
-                                                "avatar",
-                                                e.target.files[0]
-                                            )
-                                        }
-                                        className=""
-                                    />
-                                </div>
                             </div>
                             <div className="flex justify-between">
                                 <button

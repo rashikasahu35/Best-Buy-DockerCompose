@@ -69,7 +69,7 @@ const NavBar = () => {
                                 >
                                     <img
                                         className=" h-8 w-8 object-cover rounded-full "
-                                        src={user?.avatar.url || ""}
+                                        src={user?.avatar?.url || ""}
                                         alt=""
                                     />
                                 </NavLink>

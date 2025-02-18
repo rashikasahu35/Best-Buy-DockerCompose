@@ -13,41 +13,27 @@ const Register = () => {
         email: "",
         password: "",
         confirmPassword: "",
-        avatar: "",
     });
     const [inputDataError, setInputDataError] = useState({
         name: null,
         email: null,
         password: null,
         confirmPassword: null,
-        avatar: null,
     });
     
     const setInputDataHandler = (key, value) => {
-        if(key === 'avatar'){
-            const file = value
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setInputData((prevState) => ({
-                    ...prevState,
-                    avatar : reader.result
-                }))
-            };
-            reader.readAsDataURL(file);
-        }
-        else {
             setInputData((prevState) => ({
                 ...prevState,
                 [key]: value,
             }));
-        }
+        
     };
 
     const submitHandler = async (e) => {
         e.preventDefault();
         let validation = formValidation({ inputData, setInputDataError});
         if (!validation) return;
-        dispatch(registerAsync({ name : inputData.name, email : inputData.email, password : inputData.password, avatar : inputData.avatar }));
+        dispatch(registerAsync({ name : inputData.name, email : inputData.email, password : inputData.password,}));
     };
 
     useEffect(() => {
@@ -161,36 +147,7 @@ const Register = () => {
                                 {inputDataError.confirmPassword}
                             </div>
                         </div>
-                        <div>
-                            <label
-                                htmlFor="avatar"
-                                className="block text-sm font-medium leading-6 text-gray-900"
-                            >
-                                Avatar
-                            </label>
-                            <div className="flex gap-2 items-center">
-                                {inputData.avatar && (
-                                    <img
-                                        src={inputData.avatar}
-                                        className="h-14 w-14 rounded-full"
-                                    />
-                                )}
-                                <input
-                                    id="avatar"
-                                    name="avatar"
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={(e) =>
-                                        setInputDataHandler('avatar', e.target.files[0])
-                                    }
-                                    required
-                                />
-                            </div>
-                            <div className="text-red-500 text-xs">
-                                {inputDataError.avatar}
-                            </div>
-                        </div>
-
+                        
                         <div>
                             <input
                                 type="submit"

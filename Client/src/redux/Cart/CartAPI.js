@@ -48,30 +48,3 @@ export const deleteItemFromCart = async ({ product }) => {
     );
     return data;
 };
-
-// -------------------------------- ADMIN -----------------------------------
-
-export const getCart = async (id) => {
-    const headers = getAuthHeader();
-    const { data } = await axios.get(
-        `${import.meta.env.VITE_APP_SERVER_URL}/cart/${id}`,
-        headers
-    );
-    return data;
-};
-export const getAllCart = async () => {
-    const headers = getAuthHeader();
-    const { data } = await axios.get(
-        `${import.meta.env.VITE_APP_SERVER_URL}/cart/all`,
-        headers
-    );
-    return data;
-};
-export const deleteCart = async (id) => {
-    const headers = getAuthHeader();
-    const { data } = await axios.delete(
-        `${import.meta.env.VITE_APP_SERVER_URL}/cart/${id}`,
-        headers
-    );
-    return data;
-};

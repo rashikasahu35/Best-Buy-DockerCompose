@@ -23,17 +23,7 @@ const schema = new Schema({
         required: [true, "Please enter password"],
         minLength: 8,
     },
-    role: { type: String, default: "user" },
-    avatar: {
-        type: {
-            url: { type: String, required: [true, "Please enter image url"] },
-            public_id: { type: String },
-        },
-        required : [true, "Please enter user avatar image link"]
-    },
     createdOn: { type: Date, default: Date.now },
-    resetToken: { type: String },
-    resetTokenExpiration: { type: String },
 });
 
 schema.pre("save", async function (next) {
@@ -55,13 +45,6 @@ schema.methods.generateJWTtoken = function () {
 
 schema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
-};
-
-schema.methods.generateResetPasswordToken = function () {
-    const token = crypto.randomBytes(20).toString("hex");
-    this.resetToken = token;
-    this.resetTokenExpiration = Date.now() + 15 * 60 * 1000; // 15min
-    return token;
 };
 
 exports.User = mongoose.model("User", schema);

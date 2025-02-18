@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserDetailsAsync, deleteUserAccountAsync,  CLEAR_GET_USER_DETAILS_ERROR, CLEAR_USER_MESSAGE, CLEAR_USER_ERROR } from "../redux/User/UserSlice";
+import { getUserDetailsAsync, CLEAR_GET_USER_DETAILS_ERROR, CLEAR_USER_MESSAGE, CLEAR_USER_ERROR } from "../redux/User/UserSlice";
 import Spinner from '../components/Spinner'
 import {
     logoutAsync,
@@ -55,7 +55,7 @@ const UserProfile = () => {
             <section className="mt-6 w-full flex flex-col sm:flex-row items-center justify-around ">
                 <div className="flex items-center justify-center md:ml-10">
                     <img
-                        src={user?.avatar.url}
+                        src={user?.avatar?.url}
                         alt="Profile avatar"
                         className="h-28 w-28 sm:h-36 sm:w-36 lg:h-80 lg:w-80 rounded-full object-cover border-2 hover:border-indigo-600"
                     />
@@ -93,24 +93,6 @@ const UserProfile = () => {
                     className="inline-block rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-center text-white hover:bg-indigo-700 m-2"
                 >
                     Edit Profile
-                </button>
-                <button
-                    onClick={() => navigate("/orders")}
-                    className="inline-block rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-center  text-white hover:bg-indigo-700  m-2"
-                >
-                    My Orders
-                </button>
-                <button
-                    onClick={() => navigate("/changePassword")}
-                    className="inline-block rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-center  text-white hover:bg-indigo-700  m-2"
-                >
-                    Change Password
-                </button>
-                <button
-                    onClick={deleteUserAccount}
-                    className="inline-block rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-center  text-white hover:bg-indigo-700  m-2"
-                >
-                    Delete My Account
                 </button>
                 <button
                     onClick={logout}
