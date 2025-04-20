@@ -28,7 +28,4 @@ This project demonstrates the deployment of a 3-tier web application using Docke
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/7d552f7f-1d47-4ebb-a672-bf511675da74">
 
 
-<img width="700" alt="image" src="https://github.com/user-attachments/assets/74adee9d-a7b7-486b-a34b-a1846201308c">
-
-
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/b70708e9-1858-447f-a0e8-2ca6a5c9dadf">
