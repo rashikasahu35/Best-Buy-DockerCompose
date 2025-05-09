@@ -1,10 +1,6 @@
 # Deployed 3-Tier App via Docker Compose
 ### Overview
-This project demonstrates the deployment of a 3-tier web application using Docker Compose. The application consists of:
-
-- Frontend: React.js (Client)
-- Backend: Node.js with Express (API)
-- Database: MongoDB (Database)
+This project implements a modern 3-tier web application using Docker Compose, combining React frontend, Node.js backend, and MongoDB database in isolated containers with persistent storage and secure networking for scalable, maintainable deployment.
 
 ## Architecture Diagram
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/bfc29d9d-b7ce-4e1d-8277-af73e53d7003">
