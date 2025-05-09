@@ -6,6 +6,9 @@ This project demonstrates the deployment of a 3-tier web application using Docke
 - Backend: Node.js with Express (API)
 - Database: MongoDB (Database)
 
+## Architecture Diagram
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/bfc29d9d-b7ce-4e1d-8277-af73e53d7003">
+
 ## Key Features
 ✔️ Containerized Deployment - Uses Docker for easy portability.
 
